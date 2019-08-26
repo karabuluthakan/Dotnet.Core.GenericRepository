@@ -1,10 +1,11 @@
 using Dotnet.Core.Common.Helpers.Extensions;
+using Dotnet.Core.Entities.Geolocation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Dotnet.Core.DataAccess.Context
 {
-    public class GenericContext : DbContext
+    public class GenericContext : DbContext,IEntityDbContext
     {
         public GenericContext(DbContextOptions<GenericContext> options) : base(options)
         {
@@ -28,5 +29,10 @@ namespace Dotnet.Core.DataAccess.Context
 
             builder.ApplyConfigurationsFromAssembly(typeof(GenericContext).Assembly);
         }
+
+        public DbSet<Continental> Continentals { get; set; }
+        public DbSet<Region> Regions { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<City> Cities { get; set; }
     }
 }
