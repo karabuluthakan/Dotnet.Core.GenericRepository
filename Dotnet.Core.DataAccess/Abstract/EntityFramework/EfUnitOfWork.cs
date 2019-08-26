@@ -1,14 +1,14 @@
 using System;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks; 
+using Dotnet.Core.DataAccess.Context; 
 
-namespace Dotnet.Core.Common.DataAccess.EntityFramework
+namespace Dotnet.Core.DataAccess.Abstract.EntityFramework
 {
     public class EfUnitOfWork : IUnitOfWork
     {
-        private DbContext _context;
+        private GenericContext _context;
 
-        public EfUnitOfWork(DbContext context)
+        public EfUnitOfWork(GenericContext context)
         {
             _context = context;
         }

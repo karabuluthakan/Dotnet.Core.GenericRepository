@@ -5,9 +5,13 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Dotnet.Core.DataAccess.Context
 {
-    public class GenericContext : DbContext,IEntityDbContext
+    public class GenericContext : DbContext, IEntityDbContext
     {
         public GenericContext(DbContextOptions<GenericContext> options) : base(options)
+        {
+        }
+
+        public GenericContext()
         {
         }
 
@@ -21,7 +25,7 @@ namespace Dotnet.Core.DataAccess.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            
+
             builder.HasDefaultSchema("public");
             builder.ForNpgsqlUseIdentityColumns();
             builder.LowerCaseTablesAndFields();

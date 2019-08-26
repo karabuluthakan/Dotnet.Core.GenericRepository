@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Dotnet.Core.Common.DataAccess
+namespace Dotnet.Core.DataAccess.Abstract
 {
     public interface IUnitOfWork : IDisposable
     {

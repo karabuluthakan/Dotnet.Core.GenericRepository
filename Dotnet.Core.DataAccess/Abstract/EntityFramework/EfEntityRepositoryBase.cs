@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Dotnet.Core.Common.DataAccess;
 using Dotnet.Core.Common.Entities;
+using Dotnet.Core.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dotnet.Core.Common.DataAccess.EntityFramework
+namespace Dotnet.Core.DataAccess.Abstract.EntityFramework
 {
     public abstract class EfEntityRepositoryBase<T> : IEntityRepository<T>
         where T : class, IEntity, new()
     {
-        private readonly DbContext _context;
+        protected readonly GenericContext _context;
         private readonly DbSet<T> _dbSet;
 
-        public EfEntityRepositoryBase(DbContext context)
+        protected EfEntityRepositoryBase(GenericContext context)
         {
             _context = context;
             _dbSet = _context.Set<T>();

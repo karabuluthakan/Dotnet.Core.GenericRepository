@@ -3,11 +3,6 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
     </PropertyGroup>
-
-    <ItemGroup>
-      <Folder Include="Abstract" />
-      <Folder Include="Concrete" />
-    </ItemGroup>
     
 
     <ItemGroup>
@@ -20,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Dotnet.Core.Common\Dotnet.Core.Common.csproj" />
+      <ProjectReference Include="..\Dotnet.Core.Entities.Dto\Dotnet.Core.Entities.Dto.csproj" />
       <ProjectReference Include="..\Dotnet.Core.Entities\Dotnet.Core.Entities.csproj" />
     </ItemGroup>
 
