@@ -6,8 +6,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.App"/>
-        <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All"/>
+        <PackageReference Include="Microsoft.AspNetCore.App" />
+        <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Helpers\Configure" />
+      <Folder Include="Helpers\ConfigureServices" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Dotnet.Core.Common\Dotnet.Core.Common.csproj" />
     </ItemGroup>
 
 </Project>
