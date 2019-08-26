@@ -1,5 +1,6 @@
 using System;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
+using Dotnet.Core.Common.DataAccess;
 using Dotnet.Core.DataAccess.Context; 
 
 namespace Dotnet.Core.DataAccess.Abstract.EntityFramework
