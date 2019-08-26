@@ -347,3 +347,4 @@ ASALocalRun/
 
 package-microsoft-prod.deb*
 database/* 
+Dotnet.Core.Api/Controllers/ValuesController.cs
