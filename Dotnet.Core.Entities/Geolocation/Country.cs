@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using Dotnet.Core.Common.Entities;
 
@@ -14,6 +15,9 @@ namespace Dotnet.Core.Entities.Geolocation
 
         [Column("alpha_3_code", TypeName = "varchar(3)")]
         public string Alpha3Code { get; set; }
-        [Column("un_code",TypeName = "varchar(3)")] public string UNCode { get; set; }
+
+        [Column("un_code", TypeName = "varchar(3)")]
+        public string UNCode { get; set; }
+        [InverseProperty("Country")] public ICollection<City> Cities { get; set; }
     }
 }
