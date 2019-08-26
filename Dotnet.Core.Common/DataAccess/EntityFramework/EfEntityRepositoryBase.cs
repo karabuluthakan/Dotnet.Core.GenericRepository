@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dotnet.Core.Common.DataAccess.EntityFramework
 {
-    public class EfEntityRepositoryBase<T> : IEntityRepository<T>
+    public abstract class EfEntityRepositoryBase<T> : IEntityRepository<T>
         where T : class, IEntity, new()
     {
         private readonly DbContext _context;
