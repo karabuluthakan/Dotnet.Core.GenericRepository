@@ -1,8 +1,8 @@
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
-namespace Dotnet.Core.Common.Api
+namespace Dotnet.Core.Common.Presentation
 {
     public interface IConfigure
     {

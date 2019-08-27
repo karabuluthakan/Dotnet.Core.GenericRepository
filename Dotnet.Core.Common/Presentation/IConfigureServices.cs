@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Dotnet.Core.Common.Api
+namespace Dotnet.Core.Common.Presentation
 {
     public interface IConfigureServices
     {

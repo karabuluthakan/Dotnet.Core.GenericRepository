@@ -7,7 +7,7 @@ using Dotnet.Core.Common.Entities;
 using Dotnet.Core.Common.Entities.Dto;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dotnet.Core.Common.Api
+namespace Dotnet.Core.Common.Presentation
 {
     [Produces("application/json")]
     [ApiController]
