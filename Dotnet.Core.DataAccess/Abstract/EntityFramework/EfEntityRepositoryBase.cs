@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
+using System.Linq.Expressions; 
 using System.Threading.Tasks;
 using Dotnet.Core.Common.DataAccess;
 using Dotnet.Core.Common.Entities;
@@ -48,7 +48,12 @@ namespace Dotnet.Core.DataAccess.Abstract.EntityFramework
             return null;
         }
 
-        public IQueryable<T> Table { get; }
+        public IQueryable<T> Table => this.Entities;
+
+        protected virtual DbSet<T> Entities
+        {
+            get { return _dbSet; }
+        }
 
         public virtual IQueryable<T> GetListPaging(Expression<Func<T, bool>> filter, out int total, int index, int size)
         {

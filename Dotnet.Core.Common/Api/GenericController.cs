@@ -79,6 +79,7 @@ namespace Dotnet.Core.Common.Api
                 result.ResultObject = null;
                 return NotFound(result);
             }
+
             var mapping = _mapper.Map<TListDto>(data);
             try
             {
@@ -89,7 +90,7 @@ namespace Dotnet.Core.Common.Api
                 result.ResultInnerMessage = data.ResultInnerMessage;
                 if (data.ResultCode == (int) ResultStatusCode.Ok)
                     return Ok(result);
-                return BadRequest(result); 
+                return BadRequest(result);
             }
             catch (Exception e)
             {
@@ -132,6 +133,46 @@ namespace Dotnet.Core.Common.Api
 
         [HttpPut]
         public virtual async Task<IActionResult> UpdateAsync([FromRoute] int id, TEditDto item)
+        {
+            var result = new Result<TEntity>();
+            var data = await _service.GetFindByIdAsync(id);
+            if (data == null)
+            {
+                result.ResultMessage = $"No records with id => {id}";
+                result.ResultInnerMessage = $"There is no record with this id => {id} in the '{ClassFullName}' model";
+                result.ResultCode = (int) ResultStatusCode.NotFound;
+                result.ResultStatus = false;
+                result.ResultObject = null;
+                return NotFound(result);
+            }
+
+            var mapping = _mapper.Map(item, data);
+
+            try
+            {
+                var update = _service.Update(mapping);
+                result.ResultObject = mapping;
+                result.ResultCode = update.ResultCode;
+                result.ResultStatus = update.ResultStatus;
+                result.ResultMessage = update.ResultMessage;
+                result.ResultInnerMessage = update.ResultInnerMessage;
+                if (update.ResultCode == (int) ResultStatusCode.Updated)
+                    return Ok(result);
+                return BadRequest(result);
+            }
+            catch (Exception e)
+            {
+                result.ResultObject = mapping;
+                result.ResultCode = (int) ResultStatusCode.BadRequest;
+                result.ResultStatus = false;
+                result.ResultMessage = e.Message;
+                result.ResultInnerMessage = e.InnerException?.ToString();
+                return BadRequest(result);
+            }
+        }
+
+        [HttpPatch]
+        public virtual async Task<IActionResult> UpdatePatchAsync([FromRoute] int id, TEditDto item)
         {
             var result = new Result<TEntity>();
             var data = await _service.GetFindByIdAsync(id);

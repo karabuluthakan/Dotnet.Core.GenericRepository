@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Dotnet.Core.Common.DataAccess;
-using Dotnet.Core.DataAccess.Context; 
+using Dotnet.Core.DataAccess.Context;
 
 namespace Dotnet.Core.DataAccess.Abstract.EntityFramework
 {
@@ -17,29 +17,26 @@ namespace Dotnet.Core.DataAccess.Abstract.EntityFramework
         public int Commit()
         {
             var transId = -1;
-            if (_context != null)
+            if (_context == null)
+                throw new ArgumentNullException(nameof(_context));
+
+            else if (_context.ChangeTracker.HasChanges())
             {
-                if (_context.ChangeTracker.HasChanges())
+                using (var dbContextTransaction = _context.Database.BeginTransaction())
                 {
-                    using (var dbContextTransaction = _context.Database.BeginTransaction())
+                    try
                     {
-                        try
-                        {
-                            transId = _context.SaveChanges();
-                            dbContextTransaction.Commit();
-                        }
-                        catch (Exception ex)
-                        {
-                            dbContextTransaction.Rollback();
-                            throw new Exception(ex.ToString());
-                        }
+                        transId = _context.SaveChanges();
+                        dbContextTransaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransaction.Rollback();
+                        throw new Exception(ex.ToString());
                     }
                 }
             }
-            else
-            {
-                throw new ArgumentNullException(nameof(_context));
-            }
+
 
             return transId;
         }
@@ -47,28 +44,24 @@ namespace Dotnet.Core.DataAccess.Abstract.EntityFramework
         public async Task<int> CommitAsync()
         {
             var transId = -1;
-            if (_context != null)
+            if (_context == null)
+                throw new ArgumentNullException(nameof(_context));
+
+            else if (_context.ChangeTracker.HasChanges())
             {
-                if (_context.ChangeTracker.HasChanges())
+                using (var dbContextTransaction = await _context.Database.BeginTransactionAsync())
                 {
-                    using (var dbContextTransaction = await _context.Database.BeginTransactionAsync())
+                    try
                     {
-                        try
-                        {
-                            transId = await _context.SaveChangesAsync();
-                            dbContextTransaction.Commit();
-                        }
-                        catch (Exception ex)
-                        {
-                            dbContextTransaction.Rollback();
-                            throw new Exception(ex.ToString());
-                        }
+                        transId = await _context.SaveChangesAsync();
+                        dbContextTransaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransaction.Rollback();
+                        throw new Exception(ex.ToString());
                     }
                 }
-            }
-            else
-            {
-                throw new ArgumentNullException(nameof(_context));
             }
 
             return transId;

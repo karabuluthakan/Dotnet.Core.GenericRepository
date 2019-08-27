@@ -2,7 +2,7 @@ using Dotnet.Core.Common.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Dotnet.Core.DataAccess.Mappings.Abstract
+namespace Dotnet.Core.Common.DataAccess.Mappings
 {
     public abstract class EntitySimpleMapping<TKey, TEntity> : IEntitySimpleMapping<TKey, TEntity>
         where TEntity : class, IEntitySimple<TKey>, new()

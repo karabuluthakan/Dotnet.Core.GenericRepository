@@ -1,4 +1,4 @@
-using Dotnet.Core.DataAccess.Mappings.Abstract;
+using Dotnet.Core.Common.DataAccess.Mappings;
 using Dotnet.Core.Entities.Geolocation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
