@@ -16,7 +16,7 @@ namespace Dotnet.Core.Api.Controllers.V1
     {
         private readonly IRegionService _service;
 
-        public RegionsController(IRegionService regionService, IMapper mapper) : base(mapper, regionService)
+        public RegionsController(IRegionService regionService, IMapper mapper) : base(regionService, mapper)
         {
             _service = regionService;
         }

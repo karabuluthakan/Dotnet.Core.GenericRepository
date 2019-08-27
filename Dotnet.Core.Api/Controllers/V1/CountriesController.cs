@@ -16,7 +16,7 @@ namespace Dotnet.Core.Api.Controllers.V1
     {
         private readonly ICountryService _service;
 
-        public CountriesController(ICountryService countryService, IMapper mapper) : base(mapper, countryService)
+        public CountriesController(ICountryService countryService, IMapper mapper) : base(countryService,mapper)
         {
             _service = countryService;
         }

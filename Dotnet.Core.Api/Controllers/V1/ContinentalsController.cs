@@ -16,8 +16,7 @@ namespace Dotnet.Core.Api.Controllers.V1
     {
         private readonly IContinentalService _service;
 
-        public ContinentalsController(IContinentalService continentalService, IMapper mapper) : base(mapper,
-            continentalService)
+        public ContinentalsController(IContinentalService continentalService, IMapper mapper) : base(continentalService,mapper)
         {
             _service = continentalService;
         }

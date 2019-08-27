@@ -21,10 +21,10 @@ namespace Dotnet.Core.Common.Presentation
         private readonly IEntityService<TEntity> _service;
         private static string ClassFullName => typeof(TEntity).Name;
 
-        public GenericController(IMapper mapper, IEntityService<TEntity> entityService)
+        public GenericController(IEntityService<TEntity> entityService, IMapper mapper)
         {
-            _mapper = mapper;
             _service = entityService;
+            _mapper = mapper;
         }
 
         [HttpGet]

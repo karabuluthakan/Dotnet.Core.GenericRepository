@@ -11,11 +11,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Helpers\Configure" />
-      <Folder Include="Helpers\ConfigureServices" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Dotnet.Core.Business\Dotnet.Core.Business.csproj" />
       <ProjectReference Include="..\Dotnet.Core.Common\Dotnet.Core.Common.csproj" />
       <ProjectReference Include="..\Dotnet.Core.Entities.Dto\Dotnet.Core.Entities.Dto.csproj" />

@@ -15,7 +15,7 @@ namespace Dotnet.Core.Api.Controllers.V1
     {
         private readonly ICityService _service;
 
-        public CitiesController(ICityService cityService, IMapper mapper) : base(mapper, cityService)
+        public CitiesController(ICityService cityService, IMapper mapper) : base(cityService,mapper)
         {
             _service = cityService;
         }
