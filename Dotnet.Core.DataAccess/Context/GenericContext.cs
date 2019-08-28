@@ -32,6 +32,8 @@ namespace Dotnet.Core.DataAccess.Context
             builder.DisableCascadingDeletes();
 
             builder.ApplyConfigurationsFromAssembly(typeof(GenericContext).Assembly);
+
+            builder.GeolocationSeeding();
         }
 
         public DbSet<Continental> Continentals { get; set; }

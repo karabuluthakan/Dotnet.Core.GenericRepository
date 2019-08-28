@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
 using Dotnet.Core.Common.Contracts;
 using Dotnet.Core.Common.DataAccess;
 using Dotnet.Core.Common.Entities;
 
 namespace Dotnet.Core.Common.Business
 {
-    public abstract class EntityManager<T> where T : class, IEntity, new()
+    public abstract class EntityManager<T> : IEntityService<T>, IDisposable where T : class, IEntity, new()
     {
         private string ClassFullName => typeof(T).FullName;
         private readonly IEntityRepository<T> _repository;
@@ -18,6 +19,11 @@ namespace Dotnet.Core.Common.Business
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
+        }
+
+        public IQueryable<T> GetQueryable(Expression<Func<T, bool>> filter = null)
+        {
+            return _repository.GetQueryable(filter);
         }
 
         public virtual Result<T> GetFindById(object id)
@@ -71,24 +77,23 @@ namespace Dotnet.Core.Common.Business
             var result = new Result<IEnumerable<T>>();
             try
             {
-               var data =  _repository.GetList(filter);
-               if (data!=null)
-               {
-                   result.ResultCode = (int) ResultStatusCode.Ok;
-                   result.ResultMessage = $"'{ClassFullName}' successfully listed";
-                   result.ResultStatus = true;
-                   result.ResultInnerMessage = $"'{result.ResultMessage}' => {result.ResultObject}";
-                   result.ResultObject = data;
-               }
-               else
-               {
-                   result.ResultCode = (int) ResultStatusCode.NotFound;
-                   result.ResultMessage = $"'{ClassFullName}' no content";
-                   result.ResultStatus = true;
-                   result.ResultInnerMessage = $"'{result.ResultMessage}' => {result.ResultObject}";
-                   result.ResultObject = null;
-               }
-                
+                var data = _repository.GetList(filter);
+                if (data != null)
+                {
+                    result.ResultCode = (int) ResultStatusCode.Ok;
+                    result.ResultMessage = $"'{ClassFullName}' successfully listed";
+                    result.ResultStatus = true;
+                    result.ResultInnerMessage = $"'{result.ResultMessage}' => {result.ResultObject}";
+                    result.ResultObject = data;
+                }
+                else
+                {
+                    result.ResultCode = (int) ResultStatusCode.NotFound;
+                    result.ResultMessage = $"'{ClassFullName}' no content";
+                    result.ResultStatus = true;
+                    result.ResultInnerMessage = $"'{result.ResultMessage}' => {result.ResultObject}";
+                    result.ResultObject = null;
+                }
             }
             catch (Exception ex)
             {
@@ -206,7 +211,7 @@ namespace Dotnet.Core.Common.Business
             var result = new Result<T>();
             try
             {
-                var data = _repository.Update(entity); 
+                var data = _repository.Update(entity);
                 var uow = _unitOfWork.Commit();
                 if (uow > 0)
                 {
@@ -353,7 +358,7 @@ namespace Dotnet.Core.Common.Business
             var result = new Result<T>();
             try
             {
-                var data = _repository.Add(entity); 
+                var data = _repository.Add(entity);
                 var uow = await _unitOfWork.CommitAsync();
                 if (uow > 0)
                 {

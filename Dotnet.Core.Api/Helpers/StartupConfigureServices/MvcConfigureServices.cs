@@ -7,6 +7,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
 
 namespace Dotnet.Core.Api.Helpers.StartupConfigureServices
 {
@@ -24,6 +25,7 @@ namespace Dotnet.Core.Api.Helpers.StartupConfigureServices
                 .AddFluentValidation(opt => { opt.RegisterValidatorsFromAssemblyContaining<Startup>(); })
                 .AddJsonOptions(opt =>
                 {
+                    opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                     opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Dotnet.Core.Common.Contracts;
@@ -9,6 +10,7 @@ namespace Dotnet.Core.Common.Business
 {
     public interface IEntityService<T> where T : class, IEntity, new() 
     {
+        IQueryable<T> GetQueryable(Expression<Func<T, bool>> filter = null);
         Result<T> GetFindById(object id);
         Result<T> Get(Expression<Func<T, bool>> filter = null);
         Result<IEnumerable<T>> GetList(Expression<Func<T, bool>> filter = null);
