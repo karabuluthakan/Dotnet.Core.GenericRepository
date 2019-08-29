@@ -19,7 +19,7 @@ namespace Dotnet.Core.Api.Controllers.Odata
             _logger = logger;
         }
 
-        [EnableQuery]
+        [EnableQuery(MaxExpansionDepth = 8)]
         public virtual IActionResult Get()
         {
             var data = _service.GetAll();

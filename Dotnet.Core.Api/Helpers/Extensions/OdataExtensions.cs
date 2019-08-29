@@ -14,7 +14,7 @@ namespace Dotnet.Core.Api.Helpers.Extensions
                 .EntityType
                 .Filter()
                 .Count()
-                .Expand()
+                .Expand(4)
                 .OrderBy()
                 .Page()
                 .Select()
@@ -26,7 +26,7 @@ namespace Dotnet.Core.Api.Helpers.Extensions
                 .EntityType
                 .Filter()
                 .Count()
-                .Expand()
+                .Expand(3)
                 .OrderBy()
                 .Page()
                 .Select()
