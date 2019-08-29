@@ -8,9 +8,10 @@ using Dotnet.Core.Common.Entities;
 
 namespace Dotnet.Core.Common.Business
 {
-    public interface IEntityService<T> where T : class, IEntity, new() 
+    public interface IEntityService<T> where T : class, IEntity, new()
     {
-        IQueryable<T> GetQueryable(Expression<Func<T, bool>> filter = null);
+        IQueryable<T> GetAll(Expression<Func<T, bool>> filter = null);
+        Result<IQueryable<T>> GetResultQueryable(Expression<Func<T, bool>> filter = null);
         Result<T> GetFindById(object id);
         Result<T> Get(Expression<Func<T, bool>> filter = null);
         Result<IEnumerable<T>> GetList(Expression<Func<T, bool>> filter = null);

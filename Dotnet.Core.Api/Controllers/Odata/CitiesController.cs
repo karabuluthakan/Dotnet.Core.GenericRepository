@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dotnet.Core.Api.Controllers.Odata
 {
-    [Produces("application/json")]
+    [Produces("application/json")] 
     public class CitiesController : ODataController
     {
         private readonly ICityService _cityService;
@@ -17,13 +17,7 @@ namespace Dotnet.Core.Api.Controllers.Odata
         [EnableQuery]
         public IActionResult Get()
         {
-            return Ok(_cityService.GetQueryable());
-        }
-
-        [EnableQuery]
-        public IActionResult Get(int id)
-        {
-            return Ok(_cityService.GetQueryable(x => x.Id == id));
+            return Ok(_cityService.GetAll());
         }
     }
 }

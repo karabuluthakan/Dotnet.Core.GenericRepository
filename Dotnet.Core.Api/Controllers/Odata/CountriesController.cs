@@ -17,13 +17,7 @@ namespace Dotnet.Core.Api.Controllers.Odata
         [EnableQuery]
         public IActionResult Get()
         {
-            return Ok(_service.GetQueryable());
-        }
-
-        [EnableQuery]
-        public IActionResult Get([FromODataUri] int id)
-        {
-            return Ok(_service.GetQueryable(x => x.Id == id));
-        }
+            return Ok(_service.GetAll());
+        } 
     }
 }

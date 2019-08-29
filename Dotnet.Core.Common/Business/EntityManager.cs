@@ -21,9 +21,44 @@ namespace Dotnet.Core.Common.Business
             _unitOfWork = unitOfWork;
         }
 
-        public IQueryable<T> GetQueryable(Expression<Func<T, bool>> filter = null)
+        public virtual IQueryable<T> GetAll(Expression<Func<T, bool>> filter = null)
         {
             return _repository.GetQueryable(filter);
+        }
+
+        public Result<IQueryable<T>> GetResultQueryable(Expression<Func<T, bool>> filter = null)
+        {
+            var result = new Result<IQueryable<T>>();
+            try
+            {
+                var data = _repository.GetQueryable();
+                if (data != null)
+                {
+                    result.ResultCode = (int) ResultStatusCode.Ok;
+                    result.ResultMessage = $"'{ClassFullName}' successfully listed";
+                    result.ResultStatus = true;
+                    result.ResultObject = data;
+                    result.ResultInnerMessage = $"'{result.ResultMessage}' => {result.ResultObject}";
+                }
+                else
+                {
+                    result.ResultCode = (int) ResultStatusCode.ExistingItem;
+                    result.ResultMessage = $"'{ClassFullName}' no content";
+                    result.ResultStatus = true;
+                    result.ResultInnerMessage = $"'{result.ResultMessage}' => {result.ResultObject}";
+                    result.ResultObject = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.ResultCode = ex.HResult;
+                result.ResultMessage = ex.Message;
+                result.ResultInnerMessage = ex.InnerException?.ToString();
+                result.ResultStatus = false;
+                result.ResultObject = null;
+            }
+
+            return result;
         }
 
         public virtual Result<T> GetFindById(object id)
