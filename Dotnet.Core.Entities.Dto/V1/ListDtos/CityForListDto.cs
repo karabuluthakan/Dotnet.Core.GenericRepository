@@ -1,5 +1,6 @@
 using AutoMapper;
 using Dotnet.Core.Common.Entities.Dto;
+using Dotnet.Core.Common.Enums;
 
 namespace Dotnet.Core.Entities.Dto.V1.ListDtos
 {
@@ -18,5 +19,7 @@ namespace Dotnet.Core.Entities.Dto.V1.ListDtos
         {
             throw new System.NotImplementedException();
         }
+
+        public StatusEnum Status { get; set; }
     }
 }

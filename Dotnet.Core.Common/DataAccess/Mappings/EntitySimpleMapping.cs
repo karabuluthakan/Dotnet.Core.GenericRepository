@@ -1,4 +1,5 @@
 using Dotnet.Core.Common.Entities;
+using Dotnet.Core.Common.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -25,6 +26,13 @@ namespace Dotnet.Core.Common.DataAccess.Mappings
                 .HasColumnType("varchar(255)");
 
             builder.HasIndex(x => x.Name).IsUnique();
+
+            builder.Property(x => x.Status).HasColumnName("status")
+                .HasConversion<int>()
+                .HasMaxLength(1)
+                .HasDefaultValue(StatusEnum.Active)
+                .IsRequired()
+                .ForNpgsqlHasComment("Active=1(Default),Passive=2,Hold=3,Done=4,Deleted=5");
         }
     }
 }

@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions; 
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Dotnet.Core.Common.DataAccess;
 using Dotnet.Core.Common.Entities;
+using Dotnet.Core.Common.Enums;
 using Dotnet.Core.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +15,7 @@ namespace Dotnet.Core.DataAccess.Abstract.EntityFramework
         where T : class, IEntity, new()
     {
         protected readonly GenericContext _context;
-        private readonly DbSet<T> _dbSet;
+        protected readonly DbSet<T> _dbSet;
 
         protected EfEntityRepositoryBase(GenericContext context)
         {
@@ -29,11 +30,11 @@ namespace Dotnet.Core.DataAccess.Abstract.EntityFramework
                 : _dbSet.Where(filter).AsNoTracking().ToList();
         }
 
-        public IQueryable<T> GetQueryable(Expression<Func<T, bool>> filter = null)
+        public virtual IQueryable<T> GetQueryable(Expression<Func<T, bool>> filter = null)
         {
             return filter == null
-                ? _dbSet.AsNoTracking()
-                : _dbSet.Where(filter).AsNoTracking();
+                ? _dbSet.Where(x => x.Status == StatusEnum.Active).AsNoTracking()
+                : _dbSet.Where(x => x.Status == StatusEnum.Active).Where(filter).AsNoTracking();
         }
 
         public virtual T GetFindById(object id)

@@ -1,5 +1,6 @@
 using AutoMapper;
 using Dotnet.Core.Common.Entities.Dto;
+using Dotnet.Core.Common.Enums;
 using Dotnet.Core.Entities.Geolocation;
 
 namespace Dotnet.Core.Entities.Dto.V1.UpdateDtos
@@ -12,5 +13,7 @@ namespace Dotnet.Core.Entities.Dto.V1.UpdateDtos
         {
             conf.CreateMap<Continental, ContinentalForUpdateDto>().ReverseMap();
         }
+
+        public StatusEnum Status { get; set; }
     }
 }

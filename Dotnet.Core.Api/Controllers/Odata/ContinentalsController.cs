@@ -19,7 +19,7 @@ namespace Dotnet.Core.Api.Controllers.Odata
             _logger = logger;
         }
 
-        [EnableQuery(MaxExpansionDepth = 8)]
+        [EnableQuery(MaxExpansionDepth = 4)]
         public virtual IActionResult Get()
         {
             var data = _service.GetAll();
@@ -31,8 +31,7 @@ namespace Dotnet.Core.Api.Controllers.Odata
             }
 
             try
-            {
-                _logger.LogInformation($"continentals displayed : {DateTime.UtcNow}");
+            { 
                 return Ok(data);
             }
             catch (Exception e)
